@@ -1,0 +1,8 @@
+from django.conf.urls import url, include
+from .views import *
+
+urlpatterns = [
+    url(r'^$', home, name='home'),
+    url(r'^(?P<hash_id>\d+)/$', view_by_hash, name='view_by_hash'),
+    url(r'^(?P<file_name>[\w-]+)/$', view_by_file, name='view_by_file')
+]

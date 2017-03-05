@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shitty Code Share</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/milligram.css' %}">
+
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+        
+            <div class="column">
+                <h3>Shitty Code Share</h3>      
+                <div class="column">
+                    <form action="." enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    File Name:
+                    <input type="text" id="file_field" name="file_name" placeholder="Not neccessary" value="{{code_share.file_name}}">
+                    <input type="submit" value="submit"><br>
+                    <textarea name="code_snippet">{{code_share.code}}</textarea><br>
+                    </form>
+                    <blockquote>
+                        <p><em>Share your shitty code here. nothing is necessary. Put code and submit.BAM.</em></p>
+                        <p><em>You can access your code via file name or the unique number. Better to add file name to acces it later.</em></p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  </body>
+</html>
