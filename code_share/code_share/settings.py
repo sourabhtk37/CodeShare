@@ -119,7 +119,8 @@ STATIC_URL = '/static/'
 
 '''
 Settings for running on heroku
-# '''
+<<<<<<< Updated upstream
+'''
 # DATABASES['default'] = dj_database_url.config()
 # print (DATABASES['default'])
 
