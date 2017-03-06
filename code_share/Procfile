@@ -1,1 +1,1 @@
-worker: sh startserver.sh
+web: gunicorn code_share.wsgi
