@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import CodeShare
+from app_code_share.models import CodeShare
 import hashlib
 
 
@@ -13,12 +13,12 @@ def home(request):
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
         hash_value = str(hash(code_share))[1:8]
-        try:
-            CodeShare.objects.create(code=code_share, 
-                                     hash_value=hash_value,
-                                     file_name=file_name)
-        except:
-            return render('Awww!! An error. Probably you cannot have a same file name. Damn those folks.')
+        if CodeShare.objects.filter(file_name=file_name).exists() == True and file_name != '':
+            return HttpResponse('Awww!! An error. Probably you cannot have a same file name. Damn those folks.')
+
+        CodeShare.objects.create(code=code_share, 
+                                 hash_value=hash_value,
+                                 file_name=file_name)
 
         return redirect('code_share:view_by_hash', hash_id=hash_value)
 
@@ -33,6 +33,8 @@ def view_by_hash(request, hash_id):
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
+        if CodeShare.objects.filter(file_name=file_name).exists() == True:
+            return HttpResponse('Awww!! An error. Probably you cannot have a same file name. Damn those folks.')
         code_obj = CodeShare.objects.get(hash_value=hash_id)
         code_obj.code = code_share
         code_obj.file_name = file_name
@@ -51,6 +53,8 @@ def view_by_file(request, file_name):
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
+        if CodeShare.objects.filter(file_name=file_name).exists() == True:
+            return HttpResponse('Awww!! An error. Probably you cannot have a same file name. Damn those folks.')
         code_obj = CodeShare.objects.get(file_name=file_name)
         code_obj.code = code_share
         code_obj.file_name = file_name
