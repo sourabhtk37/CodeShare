@@ -1,4 +1,4 @@
 app_code_share/migrations/*
-../venv/*
+venv1/*
 *.pyc
 db.sqlite3
