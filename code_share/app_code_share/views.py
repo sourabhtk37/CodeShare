@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from app_code_share.models import CodeShare
+from .models import CodeShare
 import hashlib
 
 
@@ -33,7 +33,7 @@ def view_by_hash(request, hash_id):
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
-        if CodeShare.objects.filter(file_name=file_name).exists() == True:
+        if CodeShare.objects.filter(file_name=file_name).exists() == True and file_name != '':
             return HttpResponse('Awww!! An error. Probably you cannot have a same file name. Damn those folks.')
         code_obj = CodeShare.objects.get(hash_value=hash_id)
         code_obj.code = code_share
@@ -53,7 +53,7 @@ def view_by_file(request, file_name):
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
-        if CodeShare.objects.filter(file_name=file_name).exists() == True:
+        if CodeShare.objects.filter(file_name=file_name).exists() == True and file_name != '':
             return HttpResponse('Awww!! An error. Probably you cannot have a same file name. Damn those folks.')
         code_obj = CodeShare.objects.get(file_name=file_name)
         code_obj.code = code_share
