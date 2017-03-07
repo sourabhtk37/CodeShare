@@ -39,7 +39,7 @@ blockquote *:last-child {
 
 .button,
 button,
-input[type='button'],
+input[type='button'],#create,
 input[type='reset'],
 input[type='submit'] {
     background-color: #9b4dca;
