@@ -13,17 +13,37 @@
   </head>
   <body>
     <div class="container">
-        <div class="row">
-        
+        <div class="row">     
             <div class="column">
                 <h3>Shitty Code Share</h3>      
                 <div class="column">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                     <form action="." enctype="multipart/form-data" method="POST">
                     {% csrf_token %}
-                    File Name:
-                    <input type="text" id="file_field" name="file_name" placeholder="Not neccessary" value="{{code_share.file_name}}">
-                    <input type="submit" value="submit"><br>
-                    <textarea name="code_snippet">{{code_share.code}}</textarea><br>
+                     {% if filename %}
+                        {% if code_share.file_name %}
+                         File Name:<h4>{{code_share.file_name}}</h4>
+                        {%else%}
+                         unique Id:<h4>{{code_share.hash_value}}</h4>
+                        {%endif%}
+                        <textarea name="code_snippet">{{code_share.code}}</textarea><br>
+                        <input type="submit" value="edit">
+                         <a href="{% url 'code_share:app_home'  %}" >
+                             <div id="create" >create new </div>
+                        </a>          
+                        <br>          
+                     {%else%}
+                        File Name:
+                        <input type="text" id="file_field" name="file_name" placeholder="Not neccessary , but dont leave spaces in between the name." value="{{code_share.file_name}}">
+                        <textarea name="code_snippet">{{code_share.code}}</textarea><br>
+                        <input type="submit" value="submit"><br> 
+                     {%endif%}
                     </form>
                     <blockquote>
                         <p><em>Share your shitty code here. nothing is necessary. Put code and submit.BAM.</em></p>
