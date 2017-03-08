@@ -26,7 +26,7 @@ def api_home(request):
                 try:    
                   CodeShare.objects.create(code= serializer.validated_data["code"], 
                                              hash_value=hash_value,
-                                             file_name= file) 
+                                             file_name=file) 
                   return redirect('return_by_hash', hash_id=hash_value)
                 except:
                     return Response({"error":'same hash error '})
@@ -71,4 +71,3 @@ def code_by_filename(request, file_name,format=None):
                 serializer.save()
                 return Response(serializer.data)
         return Response("error occured")
-# Create your views here.
