@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import CodeShare
 import hashlib
 from django.contrib import messages
+import random
 
 def home(request):
     if request.method == 'GET':
@@ -10,7 +11,8 @@ def home(request):
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
-        hash_value = str(hash(code_share))[1:8]
+        a=random.randrange(0,6)
+        hash_value = str(hash(code_share))[a:a+8]
         if CodeShare.objects.filter(file_name=file_name).exists() == True and file_name != '':
               messages.error(request,'Awww!! An error. Probably we might have a file with same name. Damn those folks.')
               return render(request, 'app_code_share/homepage.html',{})
