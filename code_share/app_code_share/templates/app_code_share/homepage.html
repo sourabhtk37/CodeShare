@@ -34,10 +34,10 @@
                         {%endif%}
                         <textarea name="code_snippet">{{code_share.code}}</textarea><br>
                         <input type="submit" value="edit">
-                         <a href="{% url 'code_share:app_home'  %}" >
-                             <div id="create" >create new </div>
-                        </a>          
                         <br>          
+                         <a href="{% url 'code_share:app_home'  %}" >
+                             <button id="create" >create new </button>
+                        </a><br>          
                      {%else%}
                         File Name:
                         <input type="text" id="file_field" name="file_name" placeholder="Not neccessary , but dont leave spaces in between the name." value="{{code_share.file_name}}">
