@@ -5,22 +5,33 @@ from app_code_share.models import CodeShare
 from rest_framework.response import Response
 from django.http import HttpResponse,JsonResponse
 from rest_framework import status
+import random
 
 
 @api_view(['GET','POST'])
 def api_home(request):
-    if request.method == 'GET':
-        return Response({"id": 25,"code":"print 'hello world'","hash_value": "1950850", "file_name": "file1"}) 
+    if request.method == 'GET':       
+        return Response({"id": 25,"code":"print 'hello world'","hash_value": "1950850", "file_name": "file1"})     
     if request.method == 'POST':
-        code_share = request.POST.get('code_snippet')
-        file_name = request.POST.get('file_name')
-        hash_value = str(hash(code_share))[1:8]
-        if CodeShare.objects.filter(file_name=file_name).exists() == True and file_name != '':
-            return JsonResponse({"error":'Awww!! An error . Probably we might have a file with same name . Damn those folks.'},safe=False)
-        CodeShare.objects.create(code=code_share, 
-                                 hash_value=hash_value,
-                                 file_name=file_name)  
-        return redirect('return_by_hash', hash_id=hash_value)
+        serializer =Codeserializer(data=request.data)
+        if serializer.is_valid():
+                a=random.randrange(1,6)
+                hash_value = str(hash(serializer.validated_data["code"]))[a:a+8]
+                if "file_name" in serializer.validated_data.keys():
+                    file=serializer.validated_data["file_name"]
+                    if CodeShare.objects.filter(file_name=file).exists() == True and serializer.validated_data["file_name"] != '':
+                        return Response({"error":'Awww!! An error . Probably we might have a file with same name . Damn those folks.'})
+                else:
+                    file=None 
+                try:    
+                  CodeShare.objects.create(code= serializer.validated_data["code"], 
+                                             hash_value=hash_value,
+                                             file_name= file) 
+                  return redirect('return_by_hash', hash_id=hash_value)
+                except:
+                    return Response({"error":'same hash error '})
+        else:
+            return Response("error occured")     
 
 
 
@@ -35,16 +46,14 @@ def code_by_hash(request,hash_id,format=None):
         serialized_code=Codeserializer(code_share)
         return Response(serialized_code.data)   
     if request.method == 'POST':
-        code_share = request.POST.get('code_snippet')
         code_obj=goo404(CodeShare,hash_value=hash_id)
         serializer=Codeserializer(code_obj,data=request.data)
         if  serializer.is_valid():
-                obj=serializer.save()
-                obj.code=code_share
-                obj.save()
+                serializer.validated_data["file_name"]=code_obj.file_name
+                serializer.save()
                 return Response(serializer.data)
         else:
-            return JsonResponse("error occured")
+            return Response("error occured")
 
 
 
@@ -55,13 +64,11 @@ def code_by_filename(request, file_name,format=None):
         serialized_code=Codeserializer(code_share)
         return Response(serialized_code.data)        
     if request.method == 'POST':     
-        code_share = request.POST.get('code_snippet')
         code_obj = goo404(CodeShare,file_name=file_name)
         serializer=Codeserializer(code_obj,data=request.data)
         if  serializer.is_valid():
-                obj=serializer.save()
-                obj.code=code_share
-                obj.save()
+                serializer.validated_data["file_name"]=code_obj.file_name
+                serializer.save()
                 return Response(serializer.data)
-        return JsonResponse("error occured")
+        return Response("error occured")
 # Create your views here.
