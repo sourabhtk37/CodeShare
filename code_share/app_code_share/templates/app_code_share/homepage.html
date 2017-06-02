@@ -1,5 +1,8 @@
 {% load staticfiles %}
+
+
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,7 +18,7 @@
     <div class="container">
         <div class="row">     
             <div class="column">
-                <h3>Shitty Code Share</h3>      
+                <h3 style="padding-top:30px">Shitty Code Share</h3>      
                 <div class="column">
                     {% if messages %}
                     <ul class="messages">
@@ -39,20 +42,21 @@
                              <button id="create" >create new </button>
                         </a><br>          
                      {%else%}
-                        File Name:
-                        <input type="text" id="file_field" name="file_name" placeholder="Not neccessary , but dont leave spaces in between the name." value="{{code_share.file_name}}">
-                        <textarea name="code_snippet">{{code_share.code}}</textarea><br>
+                        <input type="text" id="file_field" name="file_name" placeholder="File Name" value="{{code_share.file_name}}">
+                        <textarea name="code_snippet" placeholder="Code Snippet">{{code_share.code}}</textarea><br>
                         <input type="submit" value="submit"><br> 
                      {%endif%}
                     </form>
                     <blockquote>
                         <p><em>Share your shitty code here. nothing is necessary. Put code and submit.BAM.</em></p>
-                        <p><em>You can access your code via file name or the unique number. Better to add file name to acces it later.</em></p>
                     </blockquote>
+
                 </div>
             </div>
         </div>
     </div>
-    
+
+    {% include "fork_github.html" %}
+
   </body>
 </html>
