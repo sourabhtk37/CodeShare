@@ -1,0 +1,2 @@
+#!/bin/sh
+GIT_WORK_TREE=/home/sourabh/projects/CodeShare git checkout -f
