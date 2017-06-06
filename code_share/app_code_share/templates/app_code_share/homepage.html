@@ -39,7 +39,7 @@
                         <input type="submit" value="edit">
                         <br>          
                          <a href="{% url 'code_share:app_home'  %}" >
-                             <button id="create" >create new </button>
+                             <div id="create" >create new </div>
                         </a><br>          
                      {%else%}
                         <input type="text" id="file_field" name="file_name" placeholder="File Name" value="{{code_share.file_name}}">
