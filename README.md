@@ -23,6 +23,11 @@ A django application for sharing code snippets.
     Go to the `settings.py` file and set the variable `DEBUG` to True.
 
 
+- Migrate DB
+
+    `python manage.py makemigrations` and `python manage.py migrate` 
+
+
 - Running test server, go to the folder with `manage.py` file and run:
 
     `python manage.py runserver`
