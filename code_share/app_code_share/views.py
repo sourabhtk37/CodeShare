@@ -68,7 +68,7 @@ def view_by_hash(request, hash_id):
         :param code_snippet: updated code snippet
 
         :returns redirects to this view again to render the new results
-        
+
     """
 
     if request.method == 'GET':
