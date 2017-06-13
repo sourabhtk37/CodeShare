@@ -47,7 +47,7 @@ ROOT_URLCONF = 'code_share.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['app_code_share/templates/app_code_share'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

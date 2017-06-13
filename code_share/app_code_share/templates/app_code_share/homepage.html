@@ -1,5 +1,8 @@
 {% load staticfiles %}
+
+
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -15,7 +18,7 @@
     <div class="container">
         <div class="row">     
             <div class="column">
-                <h3>Shitty Code Share</h3>      
+                <h3 style="padding-top:30px">Shitty Code Share</h3>      
                 <div class="column">
                     {% if messages %}
                     <ul class="messages">
@@ -32,27 +35,102 @@
                         {%else%}
                          unique Id:<h4>{{code_share.hash_value}}</h4>
                         {%endif%}
-                        <textarea name="code_snippet">{{code_share.code}}</textarea><br>
-                        <input type="submit" value="edit">
+                        <textarea id="code_snippet" name="code_snippet">{{code_share.code}}</textarea><br>
+                        <input id="submit_edit" type="submit" value="edit">
                         <br>          
                          <a href="{% url 'code_share:app_home'  %}" >
-                             <button id="create" >create new </button>
+                             <div id="create" >create new </div>
                         </a><br>          
                      {%else%}
-                        File Name:
-                        <input type="text" id="file_field" name="file_name" placeholder="Not neccessary , but dont leave spaces in between the name." value="{{code_share.file_name}}">
-                        <textarea name="code_snippet">{{code_share.code}}</textarea><br>
-                        <input type="submit" value="submit"><br> 
+                        <input type="text" id="file_field" name="file_name" placeholder="File Name" value="{{code_share.file_name}}">
+                        
+                        <textarea id="code_snippet" name="code_snippet" placeholder="Code Snippet">{{code_share.code}}</textarea><br>
+                        <input id="submit_new" type="submit" value="submit" onmouseover="check_content(this)"><br> 
                      {%endif%}
                     </form>
                     <blockquote>
                         <p><em>Share your shitty code here. nothing is necessary. Put code and submit.BAM.</em></p>
-                        <p><em>You can access your code via file name or the unique number. Better to add file name to acces it later.</em></p>
                     </blockquote>
+
                 </div>
             </div>
         </div>
     </div>
-    
+
+    {% include "fork_github.html" %}
+
   </body>
+
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    
+  <script>
+
+
+    // disables the submit button upon document ready
+    $(document).ready(function() {
+
+      if (document.getElementById("submit_new")){
+        document.getElementById("submit_new").disabled = true;
+      }
+      
+      if (document.getElementById("submit_edit")){
+        document.getElementById("submit_edit").disabled = true;
+      }
+
+    });
+
+
+    /*enables the submit button on checking if there is 
+      content in the code_snippet textarea.
+      
+      EventListener on Keyup on the textarea(code_snippet) calls this method.
+      Content in the textarea is checked and according to that 
+      submit buttons are disabled/enabled.
+    */
+    code_snippet.addEventListener('keyup', (event) => {
+
+      if (document.getElementById("code_snippet").value != ""){
+
+        if (document.getElementById("submit_new")){
+          document.getElementById("submit_new").disabled = false;
+        }
+        if (document.getElementById("submit_edit")){
+          document.getElementById("submit_edit").disabled = false;
+        }
+
+      }
+      
+      else {
+        
+        if (document.getElementById("submit_new")){
+          document.getElementById("submit_new").disabled = true;
+        }
+
+        if (document.getElementById("submit_edit")){
+          document.getElementById("submit_edit").disabled = true;
+        }
+      }
+
+    });
+
+
+
+    // Alert on form submission looked kinda ugly. But 
+    // feel free to suggest better error reporting.
+    // 
+    // function check_content() {
+    //      if ($("#code_snippet").val() == "") {
+    //        alert("Cannot submit empty code snippet")
+    //        return false
+    //      }
+    //      else {
+    //        return true
+    //      }
+    //    }
+    
+  </script>
+
 </html>
