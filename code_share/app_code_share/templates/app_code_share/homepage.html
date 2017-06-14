@@ -70,7 +70,7 @@
 
 
     // disables the submit button upon document ready
-    $(document).ready(function() {
+    window.onload = function() {
 
       if (document.getElementById("submit_new")){
         document.getElementById("submit_new").disabled = true;
@@ -80,7 +80,7 @@
         document.getElementById("submit_edit").disabled = true;
       }
 
-    });
+    };
 
 
     /*enables the submit button on checking if there is 
