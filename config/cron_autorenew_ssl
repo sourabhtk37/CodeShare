@@ -1,0 +1,2 @@
+# cron-job to auto-renew ssl certificate and restart nginx
+15 3 * * * /usr/bin/certbot renew --quiet --renew-hook "/bin/systemctl reload nginx"
