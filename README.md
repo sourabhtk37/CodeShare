@@ -48,7 +48,6 @@ Steps for contributing:
 
 - After commiting, push the branch to your upstream fork.
 
-<<<<<<< HEAD
 - Create a Pull request to this repository
 
 
@@ -68,6 +67,3 @@ domain/api
 domain/api/*filename or id*
 
 ####Every Post request will give the new object made or updated ,in response
-=======
-- Create a Pull request to this repository
->>>>>>> 5404f72... updated README.md with installation instructions and contributing guide
