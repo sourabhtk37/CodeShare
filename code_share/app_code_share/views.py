@@ -38,7 +38,7 @@ def home(request):
         if CodeShare.objects.filter(file_name=file_name).exists() == True and file_name != '':
 
             messages.error(
-                request, 'Awww!! An error. Probably we might have a file with same name. Damn those folks.')
+                request, 'An error occured')
             return render(request, 'app_code_share/homepage.html', {})
 
         CodeShare.objects.create(code=code_share,
@@ -78,22 +78,3 @@ def view_by_hash(request, hash_id):
         code_obj.save()
 
         return redirect('code_share:view_by_hash', hash_id=hash_id)
-
-
-# Removing this as it's not needed
-#
-# def view_by_file(request, file_name):
-#     """
-#     """
-
-#     if request.method == 'GET':
-#         code_share = CodeShare.objects.get(file_name=file_name)
-# return render(request, 'app_code_share/homepage.html', {'code_share':
-# code_share, "filename": "yes"})
-
-#     if request.method == 'POST':
-#         code_share = request.POST.get('code_snippet')
-#         code_obj = goo404(CodeShare, file_name=file_name)
-#         code_obj.code = code_share
-#         code_obj.save()
-#         return redirect('code_share:view_by_file', file_name=file_name)
