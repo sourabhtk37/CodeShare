@@ -5,13 +5,12 @@ from app_code_share.models import CodeShare
 from rest_framework.response import Response
 from django.http import HttpResponse,JsonResponse
 from rest_framework import status
-import random
 
 
 @api_view(['GET','POST'])
 def api_home(request):
-    if request.method == 'GET':       
-        return Response({"id": 25,"code":"print 'hello world'","hash_value": "1950850", "file_name": "file1"})     
+    if request.method == 'GET':
+        return Response({"id": 25,"code":"print 'hello world'","hash_value": "1950850", "file_name": "file1"}) 
     if request.method == 'POST':
         serializer =Codeserializer(data=request.data)
         if serializer.is_valid():
@@ -46,14 +45,16 @@ def code_by_hash(request,hash_id,format=None):
         serialized_code=Codeserializer(code_share)
         return Response(serialized_code.data)   
     if request.method == 'POST':
+        code_share = request.POST.get('code_snippet')
         code_obj=goo404(CodeShare,hash_value=hash_id)
         serializer=Codeserializer(code_obj,data=request.data)
         if  serializer.is_valid():
-                serializer.validated_data["file_name"]=code_obj.file_name
-                serializer.save()
+                obj=serializer.save()
+                obj.code=code_share
+                obj.save()
                 return Response(serializer.data)
         else:
-            return Response("error occured")
+            return JsonResponse("error occured")
 
 
 
@@ -64,10 +65,12 @@ def code_by_filename(request, file_name,format=None):
         serialized_code=Codeserializer(code_share)
         return Response(serialized_code.data)        
     if request.method == 'POST':     
+        code_share = request.POST.get('code_snippet')
         code_obj = goo404(CodeShare,file_name=file_name)
         serializer=Codeserializer(code_obj,data=request.data)
         if  serializer.is_valid():
-                serializer.validated_data["file_name"]=code_obj.file_name
-                serializer.save()
+                obj=serializer.save()
+                obj.code=code_share
+                obj.save()
                 return Response(serializer.data)
         return Response("error occured")

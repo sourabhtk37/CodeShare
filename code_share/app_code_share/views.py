@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from .models import CodeShare
 import hashlib
 from django.contrib import messages
-import random
 
 
 def home(request):
