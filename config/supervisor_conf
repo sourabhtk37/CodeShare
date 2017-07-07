@@ -1,0 +1,4 @@
+[program:code_share]
+command = gunicorn code_share.wsgi:application -b localhost:5000
+directory = /home/sourabh/projects/CodeShare/code_share
+user = sourabh
