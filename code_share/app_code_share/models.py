@@ -28,3 +28,6 @@ class CodeShare(models.Model):
 
     def __unicode__(self):
         return str(self.hash_value)
+
+    class Meta:
+      verbose_name='CodeShare'

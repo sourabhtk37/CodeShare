@@ -34,7 +34,6 @@ def home(request):
         hash_value = str(hash(code_share))[a:a + 8]
         file_exist = CodeShare.objects.filter(file_name=file_name).exists()
         if file_exist is True and file_name != '':
-
             messages.error(
                 request, 'An error occured')
             return render(request, 'app_code_share/homepage.html', {})
