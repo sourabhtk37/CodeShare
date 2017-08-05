@@ -19,9 +19,9 @@ def api_home(request):
             a = random.randrange(1, 6)
             hash_value = str(hash(serializer.validated_data["code"]))[a:a + 8]
             if "file_name" in serializer.validated_data.keys():
-                file_name = serializer.validated_data["file_name"]
+                file = serializer.validated_data["file_name"]
                 check_file = CodeShare.objects.filter(file_name=file).exists()
-                if check_file is True and file_name != '':
+                if check_file is True and file != '':
                     return Response({
                         "error": """Awww!! An error . Probably we might have a file with same name.
                          Damn those folks."""

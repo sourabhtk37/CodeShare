@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import *
+from .views import api_home, code_by_hash, code_by_filename
 from rest_framework.urlpatterns import format_suffix_patterns as suffix
 
 
