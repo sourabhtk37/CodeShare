@@ -1,6 +1,4 @@
 from test_plus.test import TestCase
-from django.contrib.auth import get_user_model
-import datetime
 from app_code_share.models import CodeShare
 import random
 
@@ -20,11 +18,8 @@ class TestCodeShare(TestCase):
         )
 
     def test_string_representation(self):
-        code_share_object = CodeShare(self.hash_value)
-        self.assertEqual(str(code_share_object), code_share_object.hash_value)
+        code_share_object = CodeShare(file_name=self.file_name)
+        self.assertEqual(str(code_share_object), code_share_object.file_name)
 
-    # def test_verbose_name(self):
-    #     self.assertEqual(str(CodeShare._meta.verbose_name), "Codeshare")
-
-    # def test_verbose_name_plural(self):
-    #     self.assertEqual(str(CodeShare._meta.verbose_name_plural), "Codeshares")
+    def test_verbose_name(self):
+        self.assertEqual(str(CodeShare._meta.verbose_name), "CodeShare")

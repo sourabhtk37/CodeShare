@@ -29,5 +29,8 @@ class CodeShare(models.Model):
     def __unicode__(self):
         return str(self.hash_value)
 
+    def __str__(self):
+      return str(self.file_name)
+
     class Meta:
       verbose_name='CodeShare'
