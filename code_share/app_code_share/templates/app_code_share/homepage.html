@@ -12,10 +12,7 @@
     <link rel="stylelesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/milligram.css' %}">
-    <script type="text/javascript" crossorigin="anonymous" src="{% static 'js/submit_button_handler.js' %}"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="{% static 'css/codeshare.css' %}">
 
   </head>
   <body>
@@ -44,8 +41,10 @@
            unique Id:<h4>{{code_share.hash_value}}</h4>
 
           {%endif%}
+          <p id="copy_button">Copy</p>
+          <input type="text" id="link_box">
           
-          <textarea id="code_snippet" name="code_snippet" onkeyup="control_submit_button()">{{code_share.code}}</textarea><br>
+          <textarea id="code_snippet" name="code_snippet">{{code_share.code}}</textarea><br>
           <input id="submit_edit" type="submit" value="edit">
           <br>          
            <a href="{% url 'code_share:app_home'%}" >
@@ -55,7 +54,7 @@
        {%else%}
           <input type="text" id="file_field" name="file_name" placeholder="File Name" value="{{code_share.file_name}}">
           
-          <textarea id="code_snippet" name="code_snippet" placeholder="Code Snippet" onkeyup="control_submit_button()">{{code_share.code}}</textarea><br>
+          <textarea id="code_snippet" name="code_snippet" placeholder="Code Snippet">{{code_share.code}}</textarea><br>
           <input id="submit_new" type="submit" value="submit" ><br> 
        
        {%endif%}
@@ -69,7 +68,8 @@
     </div>
 
     {% include "fork_github.html" %}
- 
+   <script type="text/javascript" crossorigin="anonymous" src="{% static 'js/codeshare.js' %}"></script>
   </body>
 
 </html>
+ 
