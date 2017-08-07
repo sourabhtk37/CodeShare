@@ -70,8 +70,7 @@ def view_by_hash(request, hash_id):
 
     if request.method == 'GET':
         code_share = CodeShare.objects.get(hash_value=hash_id)
-        context = {'code_share': code_share, "filename": "yes"}
-        return render(request, 'app_code_share/homepage.html', context)
+        return render(request, 'app_code_share/code_view.html', {'code_share': code_share})
 
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
