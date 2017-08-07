@@ -209,7 +209,6 @@ input[type='password'],
 input[type='search'],
 input[type='tel'],
 input[type='text'],
-input[type='url'],
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -223,6 +222,22 @@ select {
     padding: .6rem 1.0rem;
     width: 50%
 }
+
+input[type='url'],
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: 0.1rem solid #d1d1d1;
+    border-radius: .4rem;
+    box-shadow: none;
+    box-sizing: inherit;
+    height: 3.8rem;
+    padding: .6rem 1.0rem;
+    width: 30%
+}
+
 textarea{
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -234,7 +249,7 @@ textarea{
     box-sizing: inherit;
     height: 45.8rem;
     padding: .6rem 1.0rem;
-    width: 85%
+    width: 100%
 }
 
 input[type='email']:focus,
@@ -289,8 +304,8 @@ input[type='radio'] {
 
 .container {
     margin: 0 auto;
-    max-width: 112.0rem;
-    padding: 0 2.0rem;
+    max-width: 114.0rem;
+    padding: 0 1.0rem 1.0rem 1.0rem;
     position: relative;
     width: 100%
 }

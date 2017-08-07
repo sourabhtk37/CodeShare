@@ -1,0 +1,40 @@
+{% load staticfiles %}
+{% include "fork_github.html" %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shitty Code Share</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/milligram.css' %}">
+
+    {% block css %}
+
+    {% endblock %}
+  
+  </head>
+
+  <body>
+  
+    <a href="{% url 'code_share:app_home'%}" style="color:inherit;">
+      <h3 style="padding-top:10px; padding-bottom: 5px; padding-left:10px;">Shitty Code Share</h3>      
+    </a>
+
+    {% block body %}
+
+    {% endblock %}
+    
+
+    {% block scripts %}
+
+    {% endblock %}
+
+
+  </body>
+
+</html>
+ 
