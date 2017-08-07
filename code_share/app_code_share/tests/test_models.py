@@ -1,14 +1,15 @@
 from test_plus.test import TestCase
 from app_code_share.models import CodeShare
-import random
+from django.utils.crypto import get_random_string
+
 
 
 class TestCodeShare(TestCase):
 
     def setUp(self):
         self.code_share = 'testcode'
-        self.a = random.randrange(0, 6)
-        self.hash_value = str(hash(self.code_share))[self.a:self.a + 8]
+        self.chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        self.hash_value = get_random_string(8, self.chars)
         self.file_name = 'testfilename'
 
         CodeShare.objects.create(
