@@ -1,9 +1,6 @@
-textarea{
-  width:95%;
-}
 #copy_button{
-  border:1px solid;
-  display: inline;
-  cursor: pointer;
-  padding: 7px;
+  float: right;
+  margin: 0 0 0px 5px;
+  border: 2px solid;
+  border-radius: 7px;
 }

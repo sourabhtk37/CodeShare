@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/codeshare.css' %}">
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+
+      <button id="copy_button">Copy</button>
+      <input type="url" id="link_box" style="float: right;">
+
+      <form action="." enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+       
+          {% if code_share.file_name %}
+          <h4>File Name: {{code_share.file_name}}</h4>
+
+          {%endif%}
+          
+          <textarea id="code_snippet" name="code_snippet">{{code_share.code}}</textarea><br>
+          <input id="submit_edit" type="submit" value="edit">
+          <br>          
+           <a href="{% url 'code_share:app_home'%}" >
+               <div id="create">create new</div>
+          </a><br>
+
+            </form>
+      
+      <blockquote>
+          <p><em>Share your shitty code here. nothing is necessary. Put code and submit.BAM.</em></p>
+      </blockquote>
+    
+    </div>
+
+
+{% endblock %}
+
+
+{% block scripts%}
+  <script type="text/javascript" crossorigin="anonymous" src="{% static 'js/codeshare.js' %}"></script>
+{% endblock %} 
