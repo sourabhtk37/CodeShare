@@ -17,7 +17,7 @@ class CodeShare(models.Model):
     code = models.TextField(max_length=100000,
                             null=True,
                             blank=True,
-                            unique=True
+                            unique=False
                             )
     hash_value = models.SlugField(max_length=100,
                                   null=True,
