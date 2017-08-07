@@ -1,5 +1,5 @@
-from django.conf.urls import url, include
-from .views import *
+from django.conf.urls import url
+from .views import home, view_by_hash
 
 urlpatterns = [
     url(r'^$', home, name='app_home'),
