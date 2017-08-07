@@ -1,7 +1,0 @@
-{
-  "app_code_share/tests/test_models.py::TestCodeShare::test_unicode_representation": true,
-  "app_code_share/tests/test_views.py::PostTests::test_get_success_url": true,
-  "app_code_share/tests/test_views.py::PostTests::test_one_Post": true,
-  "app_code_share/tests/test_views.py::PostTests::test_two_entries": true,
-  "app_code_share/tests/test_views.py::TestPostUpdateView::test_get_success_url": true
-}
