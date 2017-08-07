@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404 as goo404
 from .models import CodeShare
 from django.contrib import messages
-import random
 from django.utils.crypto import get_random_string
 
 
