@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404 as goo404
 from .models import CodeShare
 from django.contrib import messages
 import random
+from django.utils.crypto import get_random_string
+
+
 
 
 def home(request):
@@ -28,11 +31,12 @@ def home(request):
 
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
-        file_name = request.POST.get('file_name')
+        file_name = request.POST.get('file_name')     
+        chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        hash_value= get_random_string(8, chars) 
 
-        a = random.randrange(0, 6)
-        hash_value = str(hash(code_share))[a:a + 8]
         file_exist = CodeShare.objects.filter(file_name=file_name).exists()
+
         if file_exist is True and file_name != '':
             messages.error(
                 request, 'An error occured')
