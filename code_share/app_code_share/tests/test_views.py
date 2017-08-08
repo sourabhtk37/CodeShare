@@ -9,12 +9,15 @@ class TestCodeShare(TestCase):
         self.code_share = 'testcode'
         self.chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
         self.hash_value = get_random_string(8, self.chars)
+        self.random_string = get_random_string(8, self.chars)
         self.file_name = 'testfilename'
+        self.language = 'c-like'
 
         CodeShare.objects.create(
             code=self.code_share,
             hash_value=self.hash_value,
-            file_name=self.file_name
+            file_name=self.file_name,
+            language=self.language
         )
 
     def test_post_list(self):

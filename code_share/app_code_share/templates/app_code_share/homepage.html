@@ -11,19 +11,12 @@
 
   <div class="container">
     
-    {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    
     <form action="." enctype="multipart/form-data" method="POST">
     {% csrf_token %}
      
       <input type="text" id="file_field" name="file_name" placeholder="File Name" value="{{code_share.file_name}}">
       <textarea id="code_snippet" name="code_snippet" placeholder="Code Snippet">{{code_share.code}}</textarea><br>
+      <input id="language" name="language" value="None" hidden>
       <input id="submit_new" type="submit" value="submit" ><br> 
 
     </form>

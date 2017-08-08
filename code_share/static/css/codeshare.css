@@ -1,6 +1,15 @@
 #copy_button{
-  float: right;
-  margin: 0 0 0px 5px;
-  border: 2px solid;
-  border-radius: 7px;
+    float: right;
+    margin: 0 0 0px 5px;
+    border: 2px solid;
+    border-radius: 7px;
+}
+
+.CodeMirror {
+    border: 1px solid #eee;
+    height: 70%;
+    width: 100%;
+    line-height: 1em;
+    font: 1.5rem sans-serif, sans-serif;
+    _position: relative;
 }
