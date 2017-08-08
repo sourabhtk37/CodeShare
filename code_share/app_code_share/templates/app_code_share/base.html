@@ -1,5 +1,5 @@
-{% load staticfiles %}
 {% include "fork_github.html" %}
+{% load staticfiles %}
 
 <!DOCTYPE html>
 
@@ -11,6 +11,13 @@
     <title>Shitty Code Share</title>
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'css/milligram.css' %}">
+    <link rel="stylesheet" href="{% static 'css/codemirror.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/neo.css' %}" />
+    
+    <script type="text/javascript" src="{% static 'js/codemirror.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/highlight.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/loadmode.js' %}"></script>
+
 
     {% block css %}
 
