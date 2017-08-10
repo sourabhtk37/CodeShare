@@ -36,7 +36,8 @@ def home(request):
             messages.error(
                 request, 'An error occured')
             return render(request, 'app_code_share/homepage.html', {})
-
+        elif CodeShare.objects.filter(hash_value=hash_value).exixts():
+            hash_value = hash_value + '1'
         CodeShare.objects.create(code=code_share,
                                  hash_value=hash_value,
                                  file_name=file_name)
