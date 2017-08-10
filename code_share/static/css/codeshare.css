@@ -1,0 +1,9 @@
+textarea{
+  width:95%;
+}
+#copy_button{
+  border:1px solid;
+  display: inline;
+  cursor: pointer;
+  padding: 7px;
+}
