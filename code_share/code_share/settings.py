@@ -12,7 +12,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECRET_KEY = '6*yy_^z%min*=(w9rjxj&f*fgl6daq3j)_52my8i)u5hp)9g6#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -28,10 +28,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_code_share',
     'rest_framework',
-    'api_app',
+    'django.contrib.sites',
+    'subdomains',
+
 ]
 
 MIDDLEWARE = [
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -41,7 +44,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'code_share.urls'
+ROOT_URLCONF = 'code_share.site_urls.urls'
+
+SUBDOMAIN_URLCONFS = {
+    None: 'code_share.site_urls.urls',
+    'www': 'code_share.site_urls.urls',
+    'api': 'code_share.api_urls.urls',
+}
 
 TEMPLATES = [
     {
@@ -137,6 +146,9 @@ STATICFILES_DIRS = (
 )
 
 STATIC_URL = '/static/'
+
+
+SITE_ID=1
 
 '''
 Settings for running on heroku

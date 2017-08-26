@@ -1,8 +1,14 @@
-from django.conf.urls import url
+from django.conf.urls import url,include
 from .views import home, view_by_hash
 
-urlpatterns = [
+#app urls goes here
+app_urls=[
     url(r'^$', home, name='app_home'),
-    url(r'^app/(?P<hash_id>\w+)/$', view_by_hash, name='view_by_hash'),
-    # url(r'^app/(?P<file_name>[\w-]+)/$', view_by_file, name='view_by_file')
+    url(r'^(?P<hash_id>\w+)/$', view_by_hash, name='view_by_hash'),
+]
+
+
+urlpatterns = [
+    url(r'^', include(app_urls)),
+ 
 ]

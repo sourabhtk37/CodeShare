@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+
 class CodeShare(models.Model):
     """
     Databse schema for handline the code snippet data
