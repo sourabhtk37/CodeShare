@@ -17,7 +17,7 @@ class CodeCreateView(APIView):
     API view for new code submission
 
     POST :
-        :param code_snippet: code content from the text box
+        :param code: code content from the text box
         :param file_name: if file name is specified, it is not None
         :param language: type of programming language
    
