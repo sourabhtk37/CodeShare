@@ -10,7 +10,6 @@ Contribution are welcome as always. Checkout the existing issues or create issue
 
 - Always branch from updated `development` branch locally.
 
-
 	- If resolving an issue then create a branch with name like `bugfix-#<issue_number>` or `enhancement-#<issue_number>`.
 
 - Write a commit messages describing the changes you made

@@ -2,6 +2,14 @@ from django.core.urlresolvers import reverse, resolve
 from test_plus.test import TestCase
 from app_code_share.models import CodeShare
 from django.utils.crypto import get_random_string
+from django.test.client import RequestFactory
+
+from code_share.views import (
+    page_not_found_view,
+    my_custom_error_view,
+    permission_denied_view,
+    bad_request_view,
+)
 
 
 
@@ -35,3 +43,31 @@ class TestCodeShare(TestCase):
             resolve('/app/' + self.hash_value + '/').view_name,
             'code_share:view_by_hash'
         )
+
+
+class TestMyErrorPages(TestCase):
+
+    def test_400_error(self):
+        factory = RequestFactory()
+        request = factory.get('/400')
+        response = bad_request_view(request)
+        self.assertEqual(response.status_code, 400)
+
+    def test_403_error(self):
+        factory = RequestFactory()
+        request = factory.get('/403')
+        response = permission_denied_view(request)
+        self.assertEqual(response.status_code, 403)
+
+    def test_404_error(self):
+        factory = RequestFactory()
+        request = factory.get('/404')
+        response = page_not_found_view(request)
+        self.assertEqual(response.status_code, 404)
+
+    def test_500_error(self):
+        factory = RequestFactory()
+        request = factory.get('/500')
+        response = my_custom_error_view(request)
+        self.assertEqual(response.status_code, 500)
+
