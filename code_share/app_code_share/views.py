@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404 as goo404
-from django.http import HttpResponse
 from .models import CodeShare
-import hashlib
-from django.contrib import messages
-import random
+from django.utils.crypto import get_random_string
+from django.http import Http404
 
 
 def home(request):
@@ -19,7 +17,8 @@ def home(request):
         handles the request for creating a code snippet
 
         :param code_snippet: code content from the text box
-        :param file_name: if file name is specified, it is not None 
+        :param file_name: if file name is specified, it is not None
+        :param language: type of programming language
 
         :return redirect to view_by_hash method with unique ID has param
 
@@ -31,25 +30,20 @@ def home(request):
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
-
-        a = random.randrange(0, 6)
-        hash_value = str(hash(code_share))[a:a + 8]
-
-        if CodeShare.objects.filter(file_name=file_name).exists() == True and file_name != '':
-
-            messages.error(
-                request, 'An error occured')
-            return render(request, 'app_code_share/homepage.html', {})
+        language = request.POST.get('language')
+        chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        hash_value = get_random_string(8, chars)
 
         CodeShare.objects.create(code=code_share,
                                  hash_value=hash_value,
-                                 file_name=file_name)
+                                 file_name=file_name,
+                                 language=language)
         return redirect('code_share:view_by_hash', hash_id=hash_value)
 
 
 def view_by_hash(request, hash_id):
-    """
-    retrives the code snippet associated with the unique Hash anda handles the editing
+    """retrives the code snippet associated with the
+    unique Hash anda handles the editing
 
     :param hash_id: unique ID of the code snippet
 
@@ -62,19 +56,26 @@ def view_by_hash(request, hash_id):
         handles updation in the content
 
         :param code_snippet: updated code snippet
+        :param language: type of programming language
 
         :returns redirects to this view again to render the new results
-        
+
     """
 
     if request.method == 'GET':
-        code_share = CodeShare.objects.get(hash_value=hash_id)
-        return render(request, 'app_code_share/homepage.html', {'code_share': code_share, "filename": "yes"})
+        try:
+            code_share = CodeShare.objects.get(hash_value=hash_id)
+        except CodeShare.DoesNotExist:
+            raise Http404("Codeshare does not exist")
+        context = {'code_share': code_share, "filename": "yes"}
+        return render(request, 'app_code_share/homepage.html', context)
 
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
+        language = request.POST.get('language')
         code_obj = goo404(CodeShare, hash_value=hash_id)
         code_obj.code = code_share
+        code_obj.language = language
         code_obj.save()
 
         return redirect('code_share:view_by_hash', hash_id=hash_id)

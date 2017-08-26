@@ -1,75 +1,34 @@
+{% extends "base.html" %}
 {% load staticfiles %}
 
 
-<!DOCTYPE html>
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/codeshare.css' %}">
+{% endblock %}
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shitty Code Share</title>
-    <link rel="stylelesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-    <link rel="stylesheet" href="{% static 'css/milligram.css' %}">
-    <script type="text/javascript" crossorigin="anonymous" src="{% static 'js/submit_button_handler.js' %}"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script> -->
 
-  </head>
-  <body>
-  <a href="{% url 'code_share:app_home'%}" style="color:inherit;">
-    <h3 style="padding-top:10px; padding-bottom:20px; padding-left:10px;">Shitty Code Share</h3>      
-  </a>
+{% block body %}
 
-    <div class="container">
+  <div class="container">
     
-      {% if messages %}
-      <ul class="messages">
-          {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-      </ul>
-      {% endif %}
+    <form action="." enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+     
+      <input type="text" id="file_field" name="file_name" placeholder="File Name" value="{{code_share.file_name}}">
+      <textarea id="code_snippet" name="code_snippet" placeholder="Code Snippet">{{code_share.code}}</textarea><br>
+      <input id="language" name="language" value="None" hidden>
+      <input id="submit_new" type="submit" value="submit" ><br> 
+
+    </form>
     
-      <form action="." enctype="multipart/form-data" method="POST">
-      {% csrf_token %}
-       
-       {% if filename %}   
-          {% if code_share.file_name %}
-           File Name:<h4>{{code_share.file_name}}</h4>
+    <blockquote>
+      <p><em>Share your shitty code here. nothing is necessary. Put code and submit.BAM.</em></p>
+    </blockquote>
+  </div>
 
-          {%else%}
-           unique Id:<h4>{{code_share.hash_value}}</h4>
+{% endblock %}
 
-          {%endif%}
-          
-          <textarea id="code_snippet" name="code_snippet" onkeyup="control_submit_button()">{{code_share.code}}</textarea><br>
-          <input id="submit_edit" type="submit" value="edit">
-          <br>          
-           <a href="{% url 'code_share:app_home'%}" >
-               <div id="create">create new</div>
-          </a><br>
 
-       {%else%}
-          <input type="text" id="file_field" name="file_name" placeholder="File Name" value="{{code_share.file_name}}">
-          
-          <textarea id="code_snippet" name="code_snippet" placeholder="Code Snippet" onkeyup="control_submit_button()">{{code_share.code}}</textarea><br>
-          <input id="submit_new" type="submit" value="submit" ><br> 
-       
-       {%endif%}
-
-      </form>
-      
-      <blockquote>
-          <p><em>Share your shitty code here. nothing is necessary. Put code and submit.BAM.</em></p>
-      </blockquote>
-    
-    </div>
-
-    {% include "fork_github.html" %}
- 
-  </body>
-
-</html>
+{% block scripts%}
+  <script type="text/javascript" crossorigin="anonymous" src="{% static 'js/codeshare.js' %}"></script>
+{% endblock %}
