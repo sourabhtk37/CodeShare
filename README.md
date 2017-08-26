@@ -37,33 +37,68 @@ A django application for sharing code snippets.
 
 
 ### Contributing
+Please Checkout [CONTRIBUTING.md
+](https://github.com/sourabhtk37/CodeShare/blob/master/CONTRIBUTING.md)
+ 
 
-Contribution are welcome as always. Checkout the existing issues or create issues.
-
-Steps for contributing:
-
-- Fork and clone the repository
-
-- If resolving an issue then create a branch with name like `bugfix-#<issue_number>` or `enhancement-#<issue_number>`
-
-- After commiting, push the branch to your upstream fork.
-
-- Create a Pull request to this repository
 
 
 # CodeShare API
-##GET
-###By id
-domain/api/*id*.json
-###by filename
-domain/api/*filename*.json
+
+## GET
+
+api.domain/*hashid*.json
+
+### Data Format
+```javascript  
+id : 5
+hash_value : "81b9uc7llmjm"
+code : "print ('hello world')"
+file_name "mypythoncode"
+language : "python"
+
+```
 
 
-##POST
-see json format at [CodeShare](http://domain/api.com)
-###new code file
-domain/api
-###update existing file
-domain/api/*filename or id*
+
+## POST
+
+api.domain/
+
+### Data Format
+```javascript  
+
+code : "print ('hello world')"
+file_name "mypythoncode"
+language : "python"
+
+```
+
+## PUT
+api.domain/*hashid*/
+
+
+### Data Format
+```javascript  
+
+code : "print ('hello world')"
+file_name "mypythoncode"
+language : "python"
+
+```
 
 ####Every Post request will give the new object made or updated ,in response
+
+#### Bug Fix
+
+> The django-subdomains contains a small bug and here is the fix
+ 
+ In your site-pakages/subdomains/middleware.py make a slightly change in you SubdomainMiddleware class
+
+ ```python
+ 
+from django.utils.deprecation import MiddlewareMixin
+
+class SubdomainMiddleware(MiddlewareMixin):
+
+```
