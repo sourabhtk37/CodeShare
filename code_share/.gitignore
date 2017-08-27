@@ -4,3 +4,5 @@ venv1/*
 db.sqlite3
 debug.log
 static_media/*
+.cache/*
+../.vscode/

@@ -3,7 +3,6 @@ from app_code_share.models import CodeShare
 from django.utils.crypto import get_random_string
 
 
-
 class TestCodeShare(TestCase):
 
     def setUp(self):

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404 as goo404
-from .models import CodeShare
-import random
 from django.utils.crypto import get_random_string
+from django.http import Http404
+
+from .models import CodeShare
 
 
 def home(request):
@@ -31,10 +32,8 @@ def home(request):
         code_share = request.POST.get('code_snippet')
         file_name = request.POST.get('file_name')
         language = request.POST.get('language')
-
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
-        hash_value= get_random_string(8, chars) 
-
+        hash_value = get_random_string(8, chars)
         CodeShare.objects.create(code=code_share,
                                  hash_value=hash_value,
                                  file_name=file_name,
@@ -64,12 +63,16 @@ def view_by_hash(request, hash_id):
     """
 
     if request.method == 'GET':
-        code_share = CodeShare.objects.get(hash_value=hash_id)
-        return render(request, 'app_code_share/code_view.html', {'code_share': code_share})
+        try:
+            code_share = CodeShare.objects.get(hash_value=hash_id)
+        except CodeShare.DoesNotExist:
+            raise Http404("Codeshare does not exist")
+        context = {'code_share': code_share}
+        return render(request, 'app_code_share/code_view.html', context)
 
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
-        language =request.POST.get('language')
+        language = request.POST.get('language')
         code_obj = goo404(CodeShare, hash_value=hash_id)
         code_obj.code = code_share
         code_obj.language = language
