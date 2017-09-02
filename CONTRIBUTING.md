@@ -12,7 +12,8 @@ Contribution are welcome as always. Checkout the existing issues or create issue
 
 	- If resolving an issue then create a branch with name like `bugfix-#<issue_number>` or `enhancement-#<issue_number>`.
 
-- Write a commit messages describing the changes you made
+- Write a commit messages describing the changes you made.
+- Better add a .github file to the project which have ISSUE_TEMPLATE and PULL_REQUEST_TEMPLATE.
 
 #### 2. Submitting Pull request
 
