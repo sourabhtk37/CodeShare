@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404 as goo404, redirect
 from rest_framework.decorators import api_view
 from .serializers import Codeserializer
-from app_code_share.models import CodeShare
+from code_share.app_code_share.models import CodeShare
 from rest_framework.response import Response
 import random
 

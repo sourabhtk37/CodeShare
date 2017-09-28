@@ -26,7 +26,7 @@ def home(request):
     """
 
     if request.method == 'GET':
-        return render(request, 'app_code_share/homepage.html', {})
+        return render(request, 'homepage.html', {})
 
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')
@@ -68,7 +68,7 @@ def view_by_hash(request, hash_id):
         except CodeShare.DoesNotExist:
             raise Http404("Codeshare does not exist")
         context = {'code_share': code_share}
-        return render(request, 'app_code_share/code_view.html', context)
+        return render(request, 'code_view.html', context)
 
     if request.method == 'POST':
         code_share = request.POST.get('code_snippet')

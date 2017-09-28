@@ -26,9 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_code_share',
+    'code_share.app_code_share',
     'rest_framework',
-    'api_app',
+    'code_share.api_app',
 ]
 
 MIDDLEWARE = [
@@ -46,7 +46,7 @@ ROOT_URLCONF = 'code_share.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['app_code_share/templates/app_code_share'],
+        'DIRS': ['code_share/templates/app_code_share', 'code_share/templates/error', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,7 +59,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'code_share.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
@@ -129,29 +129,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_media')
+STATIC_ROOT = os.path.join(BASE_DIR, '.static_media')
 
-STATIC_PATH = os.path.join(BASE_DIR, 'static')
+STATIC_PATH = os.path.join(BASE_DIR, 'code_share/static')
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
 
 STATIC_URL = '/static/'
 
-'''
-Settings for running on heroku
-
-'''
-# DATABASES['default'] = dj_database_url.config()
-# print (DATABASES['default'])
-
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# ALLOWED_HOSTS = ['*']
-
-# DEBUG = True
-
-# try:
-#     from .local_settings import *
-# except ImportError:
-#     pass
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
