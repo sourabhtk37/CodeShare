@@ -1,0 +1,17 @@
+language: python
+
+sudo: false
+python:
+- '3.5'
+
+install:
+  - pip install -r code_share/requirements.txt
+  - pip install coverage
+  - pip install -U pytest
+
+script:
+  - flake8 code_share
+  - cd code_share && pytest && cd ..
+  - python code_share/manage.py makemigrations --noinput
+
+after_success: coverage report
