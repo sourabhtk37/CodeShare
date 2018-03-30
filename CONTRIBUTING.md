@@ -8,9 +8,10 @@ Contribution are welcome as always. Checkout the existing issues or create issue
 
 - Fork and clone the repository.
 
-- Always branch from updated `development` branch locally.
+- Always branch from `development` branch locally.
+  - Make sure that you have updated `development` branch locally.
 
-	- If resolving an issue then create a branch with name like `bugfix-#<issue_number>` or `enhancement-#<issue_number>`.
+- If resolving an issue then create a branch with name like `bugfix-#<issue_number>` or `enhancement-#<issue_number>`
 
 - Write a commit messages describing the changes you made
 
@@ -22,3 +23,4 @@ Contribution are welcome as always. Checkout the existing issues or create issue
 
 - Create a pull request to the `development` branch of the repository.
 
+- Create a pull request to the `development` branch of the repository
