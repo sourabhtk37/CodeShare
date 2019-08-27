@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app_code_share.models import CodeShare
+from code_share.app_code_share.models import CodeShare
 
 
 class Codeserializer(serializers.ModelSerializer):

@@ -2,18 +2,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import (
-    page_not_found_view,
-    my_custom_error_view,
-    permission_denied_view,
-    bad_request_view,
+from .code_share.views import (
+    page_not_found_view, my_custom_error_view,
+    permission_denied_view, bad_request_view,
 )
 
 
 urlpatterns = [
     url(r'^admin', admin.site.urls),
-    url(r'^', include('app_code_share.urls', namespace='code_share')),
-    url(r'^api/', include('api_app.urls')),
+    url(r'^', include('code_share.app_code_share.urls', namespace='code_share')),
+    url(r'^api/', include('code_share.api_app.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
